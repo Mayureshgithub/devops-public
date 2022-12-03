@@ -1,4 +1,4 @@
-pipeline {
+apipeline {
 
     agent any
     
@@ -9,7 +9,7 @@ pipeline {
             }
         }
         
-    stage("test"){
+    astage("test"){
             steps {
                 echo 'testing the application...'
             }
