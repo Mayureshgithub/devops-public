@@ -5,7 +5,7 @@ pipeline {
     stages {
         stage("build"){
             steps {
-                echo 'building the zaplication...'
+                echo 'building the aplication...'
             }
         }
         
