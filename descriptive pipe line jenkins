@@ -1,0 +1,63 @@
+pipeline{
+  agent any
+/*tools{ //note-this is use for instalm tool or execuete tool
+ maven "maven3.8.2"
+}//tools
+*/
+ options { //useed for select option like timestamps etc
+    timestamps() //showing time stamps
+    buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '2', numToKeepStr: '2')) //discard old build
+     }
+triggers{
+    pollSCM('* * * * *') //triggr poll scm
+    cron('* * * * *') // scedule perodicaaly
+    githubPush() // use github web hokk
+     }
+stages{
+  
+  stage("checkout code")
+   {
+    steps{
+ //        isUnix(){  //note:this is use for run pipeline in different os 
+echo "chexking the code "
+//} 
+// bat  "tghis"
+    }//steps closing
+
+}//stage closing 
+
+   stage("testing the code")
+{
+   // parallel{ // run more than one stage at at time with parellal
+      steps{
+echo  "testing the code" 
+}
+}
+
+    stage("deploy the code "){
+         steps{
+echo "deploying the code "
+}
+}
+//} //parellal closing bracess
+}//closinng staging
+ post {
+always{
+emailext body: ''' code is executed !!!
+
+Regards
+ mac''' , subject : "code executed"   ,to: "mayureshachoudharkar123@gmail.com"
+}
+failure{
+emailext body:  ''' test executed !!! 
+Regards
+mac 9899098789''' , subject: "code failed" ,to: "takusecrate987@gmail.com"
+}
+success{
+emailext body: ''' code sucesss 
+regards
+mac 877687756''' , subject: "regarding code" , to: "mac123@ghmail.com"
+}
+}
+
+}//pipeline closing braces '''
